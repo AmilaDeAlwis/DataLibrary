@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
+const growthRateRoutes = require('./routes/growthRate')
 
 //express app
 const app = express()
@@ -12,9 +13,7 @@ app.use((req, res, next) => {
 })
 
 //routes
-app.get('/', (req,res) => {
-    res.json({mssg: 'Welcome to the App!!!'})
-})
+app.use('/api/growthRate', growthRateRoutes)
 
 //listen for requests
 app.listen(process.env.PORT, () => {
