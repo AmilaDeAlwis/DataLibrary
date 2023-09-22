@@ -1,37 +1,21 @@
 const express = require('express')
-const GrowthRate = require('../models/growthRateModel')
+const {getGrowthRate, getSingleGrowthRate, createGrowthRate, deleteGrowthRate, updateGrowthRate} = require('../controllers/growthRateController')
 
 const router = express.Router()
 
 //GET all GDP Growth Rate data
-router.get('/', (req, res) => {
-    res.json({mssg: 'GET all data'})
-})
+router.get('/', getGrowthRate)
 
 //GET a single GDP Growth Rate data
-router.get('/:id', (req, res) => {
-    res.json({mssg: 'GET a data'})
-})
+router.get('/:id', getSingleGrowthRate)
 
 //POST a GDP Growth Rate data
-router.post('/', async (req, res) => {
-    const {title, previous, current, next} = req.body
-    try{
-        const growthRate = await GrowthRate.create({title, previous, current, next})
-        res.status(200).json(growthRate)
-    }catch (error){
-        res.status(400).json({error: error.message})
-    }
-})
+router.post('/', createGrowthRate)
 
 //DELETE a GDP Growth Rate data
-router.delete('/:id', (req, res) => {
-    res.json({mssg: 'DELETE a data'})
-})
+router.delete('/:id', deleteGrowthRate)
 
 //UPDATE a GDP Growth Rate data
-router.patch('/:id', (req, res) => {
-    res.json({mssg: 'UPDATE a data'})
-})
+router.patch('/:id', updateGrowthRate)
 
 module.exports = router
