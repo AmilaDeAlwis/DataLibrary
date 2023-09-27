@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+// components
+import GdpDetails from '../components/GdpDetails'
+
 const Home = () => {
     const [growthRate, setGrowthRate] = useState(null)
 
@@ -19,7 +22,7 @@ const Home = () => {
         <div className="home">
             <div className="growthRate">
                 {growthRate && growthRate.map((growthRate) => (
-                    <p key={growthRate._id}>{growthRate.title}</p>
+                    <GdpDetails key={growthRate._id} growthRate={growthRate}></GdpDetails>
                 ))}
             </div>
         </div>
