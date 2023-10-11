@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 // components
 import GdpDetails from '../components/GdpDetails'
+import GdpForm from '../components/GdpForm'
 
 const Home = () => {
     const [growthRate, setGrowthRate] = useState(null)
@@ -25,6 +26,7 @@ const Home = () => {
                     <GdpDetails key={growthRate._id} growthRate={growthRate}></GdpDetails>
                 ))}
             </div>
+            <GdpForm />
         </div>
     )
 }
