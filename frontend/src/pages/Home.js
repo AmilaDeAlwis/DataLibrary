@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useGdpContext } from "../hooks/useGdpContext"
 
 // components
 import GdpDetails from '../components/GdpDetails'
 import GdpForm from '../components/GdpForm'
 
 const Home = () => {
-    const [growthRate, setGrowthRate] = useState(null)
+    const { growthRate, dispatch} = useGdpContext()
 
     useEffect(() => {
         const fetchGrowthRate = async () => {
@@ -13,10 +14,11 @@ const Home = () => {
             const json = await response.json()
 
             if (response.ok){
-                setGrowthRate(json)
+                dispatch({type: 'SET_GDP', payload: json})
             }
         }
         fetchGrowthRate()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

@@ -1,6 +1,9 @@
 import { useState } from "react"
+import { useGdpContext } from "../hooks/useGdpContext"
 
 const GdpForm = () => {
+    const { dispatch } = useGdpContext()
+
     const [title, setTitle] = useState('')
     const [previous, setPrevious] = useState('')
     const [current, setCurrent] = useState('')
@@ -31,6 +34,7 @@ const GdpForm = () => {
             setNext('')
             setError(null)
             console.log('New Workout Added', json)
+            dispatch({type: 'CREATE_GDP', payload: json})
         }
     }
 
