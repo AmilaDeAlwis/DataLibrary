@@ -18,8 +18,7 @@ const Home = () => {
             }
         }
         fetchGrowthRate()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="home">

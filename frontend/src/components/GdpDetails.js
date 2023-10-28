@@ -1,5 +1,8 @@
 import { useGdpContext } from "../hooks/useGdpContext"
 
+//date fns
+import FormatDistanceToNow from 'date-fns/formatDistanceToNow'
+
 const GdpDetails = ({ growthRate }) => {
     const { dispatch } = useGdpContext()
 
@@ -20,8 +23,8 @@ const GdpDetails = ({ growthRate }) => {
             <p><strong>Previous Year: </strong>{growthRate.previous}</p>
             <p><strong>Current Year: </strong>{growthRate.current}</p>
             <p><strong>Next year: </strong>{growthRate.next}</p>
-            <p>{growthRate.createdAt}</p>
-            <span onClick={handleClick}>Delete</span>
+            <p>{FormatDistanceToNow(new Date(growthRate.createdAt), { addSuffix: true})}</p>
+            <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>
     )
 }
