@@ -12,6 +12,10 @@ export const gdpReducer = (state, action) => {
             return {
                 growthRate: [action.payload, ...state.growthRate]
             }
+        case 'DELETE_GDP':
+            return {
+                growthRate: state.growthRate.filter((g) => g._id !== action.payload._id)
+            }
         default:
             return state
     }
