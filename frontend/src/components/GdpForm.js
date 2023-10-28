@@ -9,6 +9,7 @@ const GdpForm = () => {
     const [current, setCurrent] = useState('')
     const [next, setNext] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -26,6 +27,7 @@ const GdpForm = () => {
 
         if (!response.ok){
             setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
         if (response.ok){
             setTitle('')
@@ -33,6 +35,7 @@ const GdpForm = () => {
             setCurrent('')
             setNext('')
             setError(null)
+            setEmptyFields([])
             console.log('New Workout Added', json)
             dispatch({type: 'CREATE_GDP', payload: json})
         }
@@ -47,6 +50,7 @@ const GdpForm = () => {
                 type="text"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
+                className={emptyFields.includes('title') ? 'error' : ''}
             />
 
             <label>Previous year: </label>
@@ -54,6 +58,7 @@ const GdpForm = () => {
                 type="number"
                 onChange={(e) => setPrevious(e.target.value)}
                 value={previous}
+                className={emptyFields.includes('previous') ? 'error' : ''}
             />
 
             <label>Current Year: </label>
@@ -61,6 +66,7 @@ const GdpForm = () => {
                 type="number"
                 onChange={(e) => setCurrent(e.target.value)}
                 value={current}
+                className={emptyFields.includes('current') ? 'error' : ''}
             />
 
             <label>Next Year: </label>
@@ -68,6 +74,7 @@ const GdpForm = () => {
                 type="number"
                 onChange={(e) => setNext(e.target.value)}
                 value={next}
+                className={emptyFields.includes('next') ? 'error' : ''}
             /> 
 
             <button>Add Workout</button>

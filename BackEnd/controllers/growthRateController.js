@@ -24,6 +24,24 @@ const getSingleGrowthRate = async (req, res) => {
 const createGrowthRate = async (req, res) => {
     const {title, previous, current, next} = req.body
 
+    let emptyFields = []
+
+    if(!title) {
+        emptyFields.push('title')
+    }
+    if(!previous) {
+        emptyFields.push('previous')
+    }
+    if(!current) {
+        emptyFields.push('current')
+    }
+    if(!next) {
+        emptyFields.push('next')
+    }
+    if(emptyFields.length > 0){
+        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields})
+    }
+
     //add doc to db
     try{
         const growthRate = await GrowthRate.create({title, previous, current, next})
