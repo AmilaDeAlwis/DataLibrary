@@ -1,7 +1,17 @@
 const express = require('express')
-const {getGrowthRate, getSingleGrowthRate, createGrowthRate, deleteGrowthRate, updateGrowthRate} = require('../controllers/growthRateController')
+const {
+    getGrowthRate, 
+    getSingleGrowthRate, 
+    createGrowthRate, 
+    deleteGrowthRate, 
+    updateGrowthRate
+} = require('../controllers/growthRateController')
+const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
+
+// require auth for all GDP Growth Rate routes
+router.use(requireAuth)
 
 //GET all GDP Growth Rate data
 router.get('/', getGrowthRate)
