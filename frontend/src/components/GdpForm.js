@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { useGdpContext } from "../hooks/useGdpContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const GdpForm = () => {
     const { dispatch } = useGdpContext()
+    const { user } = useAuthContext()
 
     const [title, setTitle] = useState('')
     const [previous, setPrevious] = useState('')
@@ -14,13 +16,19 @@ const GdpForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        if (!user) {
+            setError('You Must be Logged in')
+            return
+        }
+
         const growthRate = {title, previous, current, next}
 
         const response = await fetch('/api/growthRate', {
             method: 'POST',
             body: JSON.stringify(growthRate),
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
         const json = await response.json()

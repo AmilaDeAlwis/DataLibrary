@@ -1,3 +1,4 @@
+import { useAuthContext } from "../hooks/useAuthContext"
 import { useGdpContext } from "../hooks/useGdpContext"
 
 //date fns
@@ -5,10 +6,19 @@ import FormatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 const GdpDetails = ({ growthRate }) => {
     const { dispatch } = useGdpContext()
+    const { user } = useAuthContext()
 
     const handleClick = async () => {
+        
+        if (!user) {
+            return
+        }
+        
         const response = await fetch('/api/growthRate/' + growthRate._id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            header: {
+                'Authorization': `Bearer ${user.tokrn}`
+            }
         })
         const json = await response.json()
     
