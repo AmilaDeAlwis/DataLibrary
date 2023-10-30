@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 
 //get all data
 const getGrowthRate = async (req, res) => {
-    const growthRate = await GrowthRate.find({}).sort({createdAt: -1})
+    const user_id = req.user._id
+    const growthRate = await GrowthRate.find({ user_id }).sort({createdAt: -1})
     res.status(200).json(growthRate)
 }
 
@@ -44,7 +45,8 @@ const createGrowthRate = async (req, res) => {
 
     //add doc to db
     try{
-        const growthRate = await GrowthRate.create({title, previous, current, next})
+        const user_id = req.user._id
+        const growthRate = await GrowthRate.create({title, previous, current, next, user_id})
         res.status(200).json(growthRate)
     }catch (error) {
         res.status(400).json({error: error.message})
